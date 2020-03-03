@@ -16,8 +16,8 @@ function [stat,delta,double_delta]=extract_lfcc(speech,Fs,Window_Length,NFFT,No_
 %        Eastern Finland (email: sahid@cs.uef.fi)
 %        
 %        Implementation details are available in the following paper:
-%        M. Sahidullah, T. Kinnunen, C. Hanilçi, ”A comparison of features 
-%        for synthetic speech detection”, Proc. Interspeech 2015, 
+%        M. Sahidullah, T. Kinnunen, C. Hanilï¿½i, ï¿½A comparison of features 
+%        for synthetic speech detectionï¿½, Proc. Interspeech 2015, 
 %        pp. 2087--2091, Dresden, Germany, September 2015.
 
 %rng('default');
@@ -26,7 +26,7 @@ function [stat,delta,double_delta]=extract_lfcc(speech,Fs,Window_Length,NFFT,No_
 speech = filter( [1 -0.97], 1, speech);
 %---------------------------FRAMING & WINDOWING----------------------------
 frame_length_inSample=(Fs/1000)*Window_Length;
-framedspeech=buffer(speech,frame_length_inSample,frame_length_inSample/2,'nodelay')';
+framedspeech=buffer(speech,frame_length_inSample,round(frame_length_inSample/2),'nodelay')';
 w=hamming(frame_length_inSample);
 y_framed=framedspeech.*repmat(w',size(framedspeech,1),1);
 %--------------------------------------------------------------------------

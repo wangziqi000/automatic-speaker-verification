@@ -31,7 +31,8 @@ for cnt = 1:length(myFiles)
         disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles)),' files.']);
     end
 end
-save('featureDict');
+save('featureDictPitch');
+% load('featureDictPitch.mat')
 %%
 
 % Train the classifier
@@ -42,7 +43,7 @@ fileList1 = myData{1};
 fileList2 = myData{2};
 trainLabels = myData{3};
 trainFeatures = zeros(length(trainLabels),1);
-for cnt = 1:length(trainLabels)
+parfor cnt = 1:length(trainLabels)
     trainFeatures(cnt) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end
 
@@ -57,7 +58,7 @@ fileList1 = myData{1};
 fileList2 = myData{2};
 testLabels = myData{3};
 testFeatures = zeros(length(testLabels),1);
-for cnt = 1:length(testLabels)
+parfor cnt = 1:length(testLabels)
     testFeatures(cnt) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end
 
