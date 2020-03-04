@@ -57,4 +57,4 @@ This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 20
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  | 15.6211%  |   19.2%     |   36.8%    |
-| Phone-Phone |   %  |   %  |   %   |
+| Phone-Phone | 16.3368%  |   19.2211%  |   36.3158% |
