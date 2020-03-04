@@ -26,8 +26,8 @@ This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 20
 ### LPCC (vanila_lpcc.m)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   %  |   %  |   %   |
-| Phone-Phone |   %  |   %  |   %   |
+|  Read-Read  | 33.9263%  |      32.8%  | 43.4211%   |
+| Phone-Phone |   34%     |      32%    | 42.7158%   |
 
 ### LFCC (vanilla_lfcc.m)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
@@ -54,6 +54,7 @@ This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 20
 | Phone-Phone |   %  |   %  |   %   |
 
 ### PCA + CQCC (pca_cqcc.m)
+#### ZsdD = 'ZsdD'
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  | 15.6211%  |   19.2%     |   36.8%    |
