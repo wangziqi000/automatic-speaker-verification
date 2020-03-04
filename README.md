@@ -56,5 +56,5 @@ This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 20
 ### PCA + CQCC (pca_cqcc.m)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   15.6211%  |   %  |   %   |
+|  Read-Read  | 15.6211%  |   19.2%     |   36.8%    |
 | Phone-Phone |   %  |   %  |   %   |
