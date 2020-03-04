@@ -20,6 +20,7 @@ feature num = 1
 
 ### Pitch + LPC (pitch_and_lpc.m)
 Resample to 8000Hz
+
 feature num = 10
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
@@ -36,6 +37,7 @@ feature num = 10
 ### LFCC (vanilla_lfcc.m)
 #### Include delta, delta^2
 Window_Length = 20, NFFT = 512, No_Filter = 50
+
 feature num = 150
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
@@ -59,15 +61,15 @@ feature num = 41 (apply dimension reduction)
 | Phone-Phone |   %  |   %  |   %   |
 
 ### CQCC (vanilla_cqcc.m)
-#### ZsdD = 'ZsdD'
+#### ZsdD = 'ZsdD', include delta, delta^2
 feature num = 60
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   %  |   %  |   %   |
-| Phone-Phone |   %  |   %  |   %   |
+|  Read-Read  |   21.2%   |   19.3263%  |   38.4%    |
+| Phone-Phone |   22%     |   21.6%     | 39.2105%   |
 
 ### PCA + CQCC (pca_cqcc.m)
-#### ZsdD = 'ZsdD'
+#### ZsdD = 'ZsdD', include delta, delta^2
 feature num = 20 (apply dimension reduction)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
