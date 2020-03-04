@@ -3,16 +3,58 @@ This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 20
 
 ## Methods
 - Pitch + LPC
-- MFCC
-- LFCC
 - LPCC
+- LFCC
+- MFCC
+- PCA + MFCC
 - CQCC
-- CQCC + 40 Coeffs
+- PCA + CQCC
 
 ## Results
-### Baseline
+### Pitch (sample.m, Baseline)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   39.40%  |   40.7684%  |   45.20%   |
 | Phone-Phone |   39.00%  |   40.8974%  |    44.8%   |
 
+### Pitch + LPC (pitch_and_lpc.m)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   %  |   %  |   %   |
+| Phone-Phone |   %  |   %  |   %   |
+
+### LPCC (vanila_lpcc.m)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   %  |   %  |   %   |
+| Phone-Phone |   %  |   %  |   %   |
+
+### LFCC (vanilla_lfcc.m)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   %  |   %  |   %   |
+| Phone-Phone |   %  |   %  |   %   |
+
+### MFCC (vanilla_mfcc.m)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   %  |   %  |   %   |
+| Phone-Phone |   %  |   %  |   %   |
+
+### PCA + MFCC (pca_mfcc.m)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   %  |   %  |   %   |
+| Phone-Phone |   %  |   %  |   %   |
+
+### CQCC (vanilla_cqcc.m)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   %  |   %  |   %   |
+| Phone-Phone |   %  |   %  |   %   |
+
+### PCA + CQCC (pca_cqcc.m)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   15.6211%  |   %  |   %   |
+| Phone-Phone |   %  |   %  |   %   |
