@@ -50,15 +50,15 @@ feature num = 42
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   21.4%   |   17.6%     |   37.8%    |
-| Phone-Phone |   23.2%   |   18.4%     |   37.8%   |
+| Phone-Phone |   23.2%   |   18.4%     |   37.8%    |
 
 ### PCA + MFCC (pca_mfcc.m)
 #### NumCoeffs = 40; Exclude delta, delta^2
 feature num = 41 (apply dimension reduction)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   %  |   %  |   %   |
-| Phone-Phone |   %  |   %  |   %   |
+|  Read-Read  | 14.7474%  |   18.4%     |   39%      |
+| Phone-Phone |   15.8%   |   17.6%     |   38.1579% |
 
 ### CQCC (vanilla_cqcc.m)
 #### ZsdD = 'ZsdD', include delta, delta^2
