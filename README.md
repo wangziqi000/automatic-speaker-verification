@@ -24,8 +24,8 @@ Resample to 8000Hz
 feature num = 10
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   %  |   %  |   %   |
-| Phone-Phone |   %  |   %  |   %   |
+|  Read-Read  |   35.2%   |   32%       |   43.4%    |
+| Phone-Phone |   35%     |   30.5684%  |   43.6%    |
 
 ### LPCC (vanila_lpcc.m)
 feature num = 10
