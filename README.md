@@ -46,11 +46,11 @@ feature num = 150
 
 ### MFCC (vanilla_mfcc.m)
 #### Include delta, delta^2
-feature num = 
+feature num = 42
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   %  |   %  |   %   |
-| Phone-Phone |   %  |   %  |   %   |
+|  Read-Read  |   21.4%   |   17.6%     |   37.8%    |
+| Phone-Phone |   23.2%   |   18.4%     |   37.8%   |
 
 ### PCA + MFCC (pca_mfcc.m)
 #### NumCoeffs = 40; Exclude delta, delta^2
