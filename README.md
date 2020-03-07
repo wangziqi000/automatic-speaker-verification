@@ -74,11 +74,33 @@ feature num = 48
 |  Read-Read  |   14.4%   |   18.2737%  |   38.8%    |
 | Phone-Phone |   17.4%   |    18%      |   38.1895% |
 
+
+#### NumCoeffs = 35; Exclude delta, delta^2
+feature num = 36
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  | 15.0421%  |   %     |   %      |
+| Phone-Phone |   %   |   %     |   % |
+
 #### NumCoeffs = 30; Exclude delta, delta^2
 feature num = 31
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   15.2%   |   %     |   %      |
+| Phone-Phone |   %   |   %     |   % |
+
+#### NumCoeffs = 25; Exclude delta, delta^2
+feature num = 26
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   17.4%   |   %     |   %      |
+| Phone-Phone |   %   |   %     |   % |
+
+#### NumCoeffs = 20; Exclude delta, delta^2
+feature num = 21
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  19.5368% |   %     |   %      |
 | Phone-Phone |   %   |   %     |   % |
 
 ### CQCC (vanilla_cqcc.m)
