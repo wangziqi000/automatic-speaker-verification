@@ -61,11 +61,25 @@ feature num = 14
 
 ### PCA + MFCC (pca_mfcc.m)
 #### NumCoeffs = 40; Exclude delta, delta^2
-feature num = 41 (apply dimension reduction)
+feature num = 41
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  | 14.7474%  |   18.4%     |   39%      |
 | Phone-Phone |   15.8%   |   17.6%     |   38.1579% |
+
+#### NumCoeffs = 40; Include delta, delta^2
+feature num = 48
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   14.4%   |   18.2737%  |   38.8%    |
+| Phone-Phone |   17.4%   |    18%      |   38.1895% |
+
+#### NumCoeffs = 30; Exclude delta, delta^2
+feature num = 31
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   15.2%   |   %     |   %      |
+| Phone-Phone |   %   |   %     |   % |
 
 ### CQCC (vanilla_cqcc.m)
 #### ZsdD = 'ZsdD', include delta, delta^2
