@@ -35,13 +35,31 @@ feature num = 10
 | Phone-Phone |   34%     |      32%    | 42.7158%   |
 
 ### LFCC (vanilla_lfcc.m)
+#### Include delta, delta^2
+Window_Length = 20, NFFT = 512, No_Filter = 30
+
+feature num = 90
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  22.8%    |    %   |    %   |
+| Phone-Phone |  % |    %    |    %   |
+
+#### Include delta, delta^2
+Window_Length = 20, NFFT = 512, No_Filter = 50
+
+feature num = 150
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  %    |    %   |    %   |
+| Phone-Phone |  % |    %    |    %   |
+
 #### Exclude delta, delta^2
 Window_Length = 20, NFFT = 512, No_Filter = 50
 
 feature num = 50
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |    22%    |    22.8 %   |    36.8%   |
+|  Read-Read  |    22%    |    22.8%   |    36.8%   |
 | Phone-Phone |  21.7474% |    22.8%    |    37.2%   |
 
 ### MFCC (vanilla_mfcc.m)
