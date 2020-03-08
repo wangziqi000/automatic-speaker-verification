@@ -50,7 +50,7 @@ Window_Length = 20, NFFT = 512, No_Filter = 50
 feature num = 150
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  %    |    %   |    %   |
+|  Read-Read  |  24.1263% |    %   |    %   |
 | Phone-Phone |  % |    %    |    %   |
 
 #### Exclude delta, delta^2
