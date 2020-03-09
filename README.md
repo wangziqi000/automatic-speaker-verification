@@ -146,4 +146,11 @@ feature num = 20 (apply dimension reduction)
 |  Read-Read  | 15.6211%  |   19.2%     |   36.8%    |
 | Phone-Phone | 16.3368%  |   19.2211%  |   36.3158% |
 
-
+### MFCC + LPC ()
+#### Exclude delta, delta^2
+#### (mfcc=40 (1:41)取(1:30), lpcs(3:4))
+(apply dimension reduction pca = 0.9999)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  | 14.7263%  |   17.2%     |   34.6%    |
+| Phone-Phone | 17.1789%  |   16.8%     |   35.6%    |
