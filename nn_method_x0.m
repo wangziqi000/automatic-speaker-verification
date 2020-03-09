@@ -8,7 +8,7 @@
 % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
-testList = 'test_read_trials.txt';
+testList = 'test_mismatch_trials.txt';
 % 
 tic
 %
@@ -54,6 +54,7 @@ for cnt = 1:length(myFiles)
     featureDict(myFiles{cnt}) = transpose(featureDict(myFiles{cnt}))*trans_mat;
 end
 
+% new_dim = size(feat, 1);
 %%
 
 % Train the classifier
@@ -63,7 +64,7 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 trainLabels = myData{3};
-trainFeatures = zeros(length(trainLabels),new_dim);
+trainFeatures = zeros(length(trainLabels), new_dim);
 parfor cnt = 1:length(trainLabels)
     trainFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end
@@ -78,7 +79,7 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 testLabels = myData{3};
-testFeatures = zeros(length(testLabels),new_dim);
+testFeatures = zeros(length(testLabels), new_dim);
 parfor cnt = 1:length(testLabels)
     testFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end
