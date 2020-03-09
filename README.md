@@ -62,6 +62,15 @@ feature num = 50
 |  Read-Read  |    22%    |    22.8%   |    36.8%   |
 | Phone-Phone |  21.7474% |    22.8%    |    37.2%   |
 
+### PCA + LFCC (vanilla_lfcc.m)
+#### Exclude delta, delta^2
+Window_Length = 20, NFFT = 512, No_Filter = 450
+
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  11.7895% |    20.2%    |    41.8%   |
+| Phone-Phone |  13.4%    |    19.4%    |    41.2%   |
+
 ### MFCC (vanilla_mfcc.m)
 #### Include delta, delta^2
 feature num = 42

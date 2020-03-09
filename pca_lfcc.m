@@ -7,7 +7,7 @@
 %%
 % Define lists
 allFiles = 'allFiles.txt';
-trainList = 'train_read_trials.txt';  
+trainList = 'train_phone_trials.txt';  
 testList = 'test_read_trials.txt';
 
 tic
@@ -18,16 +18,16 @@ fid = fopen(allFiles);
 myData = textscan(fid,'%s');
 fclose(fid);
 myFiles = myData{1};
-wholeFeatures = zeros(length(myFiles), 41);
+wholeFeatures = zeros(length(myFiles), 450);
 for cnt = 1:length(myFiles)
     [snd,fs] = audioread(myFiles{cnt});
-%     Window_Length = 20;
-%     NFFT = 512;
-%     No_Filter = 50;
+    Window_Length = 20;
+    NFFT = 512;
+    No_Filter = 450;
     try
-        [coeffs,delta,deltaDelta,loc] = mfcc(snd,fs, 'NumCoeffs', 40);
-        featureDict(myFiles{cnt}) = mean(coeffs, 1);
-        wholeFeatures(cnt,:) = mean(coeffs,1);
+        [stat,delta,double_delta] = extract_lfcc(snd,fs,Window_Length,NFFT,No_Filter); 
+        featureDict(myFiles{cnt}) = mean(stat,1);
+        wholeFeatures(cnt,:) = mean(stat,1);
     catch
         disp(["No features for the file ", myFiles{cnt}]);
     end
@@ -37,16 +37,16 @@ for cnt = 1:length(myFiles)
     end
 end
 
-new_dim = 41;
-% % PCA dimemsion reduction
-% [coeff,score,latent] = pca(wholeFeatures);
-% new_dim = sum(cumsum(latent)./sum(latent)<0.99999)+1;
-% trans_mat = coeff(:,1:new_dim);
-% 
-% % apply dimension reduction
-% for cnt = 1:length(myFiles)
-%     featureDict(myFiles{cnt}) = featureDict(myFiles{cnt})*trans_mat;
-% end
+
+% PCA dimemsion reduction
+[coeff,score,latent] = pca(wholeFeatures);
+new_dim = sum(cumsum(latent)./sum(latent)<0.99999)+1;
+trans_mat = coeff(:,1:new_dim);
+
+% apply dimension reduction
+for cnt = 1:length(myFiles)
+    featureDict(myFiles{cnt}) = featureDict(myFiles{cnt})*trans_mat;
+end
 
 % save('featureDictMFCC_delta_delta2');
 % load('featureDictMFCC.mat');
