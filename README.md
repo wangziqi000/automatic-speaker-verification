@@ -154,3 +154,29 @@ feature num = 20 (apply dimension reduction)
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  | 14.7263%  |   17.2%     |   34.6%    |
 | Phone-Phone | 17.1789%  |   16.8%     |   35.6%    |
+
+### MFCC + LPC ()
+#### Exclude delta, delta^2
+#### (mfcc=40 (1:41)取(1:30), lpcs(3:5))
+(apply dimension reduction pca = 0.9999)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  | 15.2%     |   17.0526%  |   35.3263% |
+| Phone-Phone | 15.9789%  |   16.8%     |   35.9474% |
+
+### MFCC + LPC ()
+#### Exclude delta, delta^2
+#### (mfcc=40 (1:41)取(1:35), lpcs(3:5))
+(apply dimension reduction pca = 0.9999)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  | 14.8%     |   17.1263%  |   35.3053% |
+| Phone-Phone | 17.3053%  |   16.5263%  |   36.6%    |
+
+### MFCC + cqcc + LPC ()
+#### Exclude delta, delta^2
+(apply dimension reduction pca = 0.9999)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  | 15.9368%  |   20%       |   36.6105% |
+| Phone-Phone | 16.4%     |   19.3474%  |   36.7474% |
