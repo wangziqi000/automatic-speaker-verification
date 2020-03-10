@@ -187,3 +187,11 @@ feature num = 20 (apply dimension reduction)
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  | 15.9368%  |   20%       |   36.6105% |
 | Phone-Phone | 16.4%     |   19.3474%  |   36.7474% |
+
+### i-Vector (vanilla_ivector.m)
+#### Exclude delta, delta^2
+feature num = 70 (use score_gplda)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   29.8%   |   34.4%     |     36%    |
+| Phone-Phone |   30.6%   |   30.4%     |    34.8%   |
