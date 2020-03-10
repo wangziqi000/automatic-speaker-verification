@@ -27,7 +27,14 @@ feature num = 10
 |  Read-Read  |   35.2%   |   32%       |   43.4%    |
 | Phone-Phone |   35%     |   30.5684%  |   43.6%    |
 
-### LPCC (vanila_lpcc.m)
+### LPC
+feature num = 9
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   37.6%   |   40.8%     |   46.6%    |
+| Phone-Phone |   37.2%   |   40.4%     |   46.8%    |
+
+### LPCC
 feature num = 10
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
