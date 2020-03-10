@@ -6,12 +6,15 @@
 % clc;
 %%
 % Define lists
+load('featureVGGVox_x1.mat')
+
+
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
-testList = 'test_phone_trials.txt';
-% 
+testList = 'test_mismatch_trials.txt';
+% for read-mismatch, the EER is 23%.
 tic
-%
+
 % % Extract features
 % featureDict = containers.Map;
 % fid = fopen(allFiles);
@@ -31,8 +34,8 @@ tic
 %         disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles)),' files.']);
 %     end
 % end
-% save('featureVGGVox_x0');
-load('featureVGGVox_x1.mat')
+% 
+% save('featureVGGVox_x1');
 
 %%
 
@@ -52,7 +55,7 @@ Mdl = fitcknn(trainFeatures,trainLabels,'NumNeighbors',15000,'Standardize',1);
 
 %%
 % Test the classifier
-fid = fopen(testList);
+fid = fopen(testList, "r");
 myData = textscan(fid,'%s %s %f');
 fclose(fid);
 fileList1 = myData{1};

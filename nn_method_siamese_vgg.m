@@ -5,13 +5,16 @@
 % clear all;
 % clc;
 %%
-% Define lists
+
+load('featureVGGVox_x1_vgg.mat')
+
+% % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
-testList = 'test_read_trials.txt';
-
+testList = 'test_mismatch_trials.txt';
+% for read-mismatch, the EER is 32.5158.
 tic
-%
+% %
 % % Extract features
 % featureDict = containers.Map;
 % fid = fopen(allFiles);
@@ -20,16 +23,9 @@ tic
 % myFiles = myData{1};
 % for cnt = 1:length(myFiles)
 %     [snd,fs] = audioread(myFiles{cnt});
-%     B = 96;
-%     fmax = fs/2;
-%     fmin = fmax/2^9;
-%     d = 16;
-%     cf = 19;
-%     ZsdD = 'ZsdD';
 %     try
-%         [CQcc, LogP_absCQT, TimeVec, FreqVec, Ures_LogP_absCQT, Ures_FreqVec] = ...
-%     cqcc(snd, fs, B, fmax, fmin, d, cf, ZsdD);
-%         featureDict(myFiles{cnt}) = mean(CQcc,2);
+%         feat = vcc_vox_net_x1_vgg(snd);
+%         featureDict(myFiles{cnt}) = feat;
 %     catch
 %         disp(["No features for the file ", myFiles{cnt}]);
 %     end
@@ -38,8 +34,33 @@ tic
 %         disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles)),' files.']);
 %     end
 % end
-% save('featureDictCQCC');
-load('featureDictCQCC.mat');
+% save('featureVGGVox_x1_vgg');
+
+
+%% pca
+% fid = fopen(allFiles,'r');
+% myData = textscan(fid,'%s');
+% fclose(fid);
+% fileList = myData{1};
+% wholeFeatures = zeros(length(fileList),size(feat, 1));
+% 
+% for cnt = 1:length(fileList)
+%     wholeFeatures(cnt,:) = featureDict(fileList{cnt});
+% end
+% 
+% [coeff,score,latent] = pca(wholeFeatures);
+% new_dim = sum(cumsum(latent)./sum(latent)<0.99999)+1;
+% trans_mat = coeff(:,1:new_dim);
+% 
+% % apply dimension reduction
+% for cnt = 1:length(myFiles)
+%     featureDict(myFiles{cnt}) = transpose(featureDict(myFiles{cnt}))*trans_mat;
+% end
+
+% new_dim = size(feat, 1);
+
+new_dim = 1;
+
 %%
 
 % Train the classifier
@@ -49,9 +70,9 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 trainLabels = myData{3};
-trainFeatures = zeros(length(trainLabels),60);
+trainFeatures = zeros(length(trainLabels), new_dim);
 parfor cnt = 1:length(trainLabels)
-    trainFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
+    trainFeatures(cnt,:) = -pdist([featureDict(fileList1{cnt}),featureDict(fileList2{cnt})]', 'euclidean');
 end
 
 Mdl = fitcknn(trainFeatures,trainLabels,'NumNeighbors',15000,'Standardize',1);
@@ -64,9 +85,9 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 testLabels = myData{3};
-testFeatures = zeros(length(testLabels),60);
+testFeatures = zeros(length(testLabels), new_dim);
 parfor cnt = 1:length(testLabels)
-    testFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
+    testFeatures(cnt,:) = -pdist([featureDict(fileList1{cnt}),featureDict(fileList2{cnt})]', 'euclidean');
 end
 
 [~,prediction,~] = predict(Mdl,testFeatures);

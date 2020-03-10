@@ -6,7 +6,8 @@ function demo_vggvox_verif(varargin)
 % prints the distance on a test evalutation pair
 
 opts.modelPath = '' ;
-opts.gpu = 3;
+% opts.gpu = 3;
+opts.gpu = 0;
 opts.dataDir = 'testfiles/verif'; 
 opts = vl_argparse(opts, varargin) ;
 
@@ -43,7 +44,8 @@ net.addLayer('dist', dagnn.PDist('p',2), {'x1_s1', 'x1_s2'}, 'distance');
 
 % Evaluate network on GPU and set up network to be in test
 % mode
-net.move('gpu');
+% net.move('gpu');
+net.move("cpu");
 net.conserveMemory = 0;
 net.mode = 'test' ;
 
@@ -63,8 +65,10 @@ p2 = buckets.pool(s2==buckets.width);
 
 net.layers(22).block.poolSize=[1 p1];
 net.layers(47).block.poolSize=[1 p2];
-featid = structfind(net.vars,'name','distance');
-net.eval({ 'input_b1', gpuArray(inp1) ,'input_b2', gpuArray(inp2) });
+% featid = structfind(net.vars,'name','distance');
+featid = strcmp({net.vars.name},'distance');
+% net.eval({ 'input_b1', gpuArray(inp1) ,'input_b2', gpuArray(inp2) });
+net.eval({ 'input_b1', inp1 ,'input_b2', inp2 });
 dist = gather(squeeze(net.vars(featid).value));
 
 % Print distance

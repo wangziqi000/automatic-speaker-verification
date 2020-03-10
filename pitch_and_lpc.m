@@ -5,6 +5,9 @@
 % clear all;
 % clc;
 %%
+
+% load('featureDictMPitchLPC8.mat');
+
 % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
@@ -43,7 +46,7 @@ for cnt = 1:length(myFiles)
     end
 end
 save('featureDictMPitchLPC8');
-% load('featureDictMPitchLPC8.mat');
+
 %%
 
 % Train the classifier

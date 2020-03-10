@@ -6,15 +6,16 @@
 % clc;
 %%
 
-load('featureVGGVox_x0.mat')
+load('featureVGGVox_x1_vgg.mat')
 
-% Define lists
+% % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
 testList = 'test_mismatch_trials.txt';
-% for read-mismatch, the EER is 31.62%.
+% for read-mismatch, the EER is 32.4%.
+
 tic
-%
+% %
 % % Extract features
 % featureDict = containers.Map;
 % fid = fopen(allFiles);
@@ -24,7 +25,7 @@ tic
 % for cnt = 1:length(myFiles)
 %     [snd,fs] = audioread(myFiles{cnt});
 %     try
-%         feat = vcc_vox_net_x0(snd);
+%         feat = vcc_vox_net_x1_vgg(snd);
 %         featureDict(myFiles{cnt}) = feat;
 %     catch
 %         disp(["No features for the file ", myFiles{cnt}]);
@@ -34,7 +35,7 @@ tic
 %         disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles)),' files.']);
 %     end
 % end
-% save('featureVGGVox_x0');
+% save('featureVGGVox_x1_vgg');
 
 
 %% pca
@@ -42,7 +43,7 @@ tic
 % myData = textscan(fid,'%s');
 % fclose(fid);
 % fileList = myData{1};
-% wholeFeatures = zeros(length(fileList),2048);
+% wholeFeatures = zeros(length(fileList),size(feat, 1));
 % 
 % for cnt = 1:length(fileList)
 %     wholeFeatures(cnt,:) = featureDict(fileList{cnt});

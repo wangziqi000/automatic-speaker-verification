@@ -49,6 +49,7 @@ load(opts.modelPath); net = dagnn.DagNN.loadobj(netStruct);
 net.meta = opt; 
 
 % add a distance layer 
+% net.addLayer('dist', dagnn.PDist('p',2), {'x0_s1', 'x0_s2'}, 'distance');
 net.addLayer('dist', dagnn.PDist('p',2), {'x0_s1', 'x0_s2'}, 'distance');
 
 % Evaluate network on GPU and set it to test mode

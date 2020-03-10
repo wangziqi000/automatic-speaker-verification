@@ -5,10 +5,20 @@
 % clear all;
 % clc;
 %%
+
+% load('featureDictCQCC.mat');
+
 % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
 testList = 'test_read_trials.txt';
+
+use_pca = 1;
+pca_latent_knob = 0.99999;
+
+num_coeffs = 19;
+use_delta = 0;
+use_delta_delta = 0;
 
 tic
 
@@ -20,24 +30,59 @@ fclose(fid);
 myFiles = myData{1};
 for cnt = 1:length(myFiles)
     [snd,fs] = audioread(myFiles{cnt});
-%     Window_Length = 20;
-%     NFFT = 512;
-%     No_Filter = 50;
+    B = 96;
+    fmax = fs/2;
+    fmin = fmax/2^9;
+    d = 16;
+    cf = num_coeffs;
+    
+    if use_delta_delta == 1
+        ZsdD = 'ZsdD';
+    elseif use_delta == 1
+        ZsdD = 'Zsd';
+    else 
+        ZsdD = 'Zs';
+    end
+
     try
-        a = lpc(snd,6);
-        lpc2cc = dsp.LPCToCepstral;
-        CC = step(lpc2cc,transpose(a));
-        featureDict(myFiles{cnt}) = CC;
+        [CQcc, LogP_absCQT, TimeVec, FreqVec, Ures_LogP_absCQT, Ures_FreqVec] = ...
+    cqcc(snd, fs, B, fmax, fmin, d, cf, ZsdD);
+        featureDict(myFiles{cnt}) = mean(CQcc,2);
     catch
         disp(["No features for the file ", myFiles{cnt}]);
     end
     
-    if(mod(cnt,1)==0)
+    if(mod(cnt,100)==0)
         disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles)),' files.']);
     end
 end
-% save('featureDictMFCC_delta_delta2');
-% load('featureDictMFCC.mat');
+
+% save('featureDictCQCC');
+
+%% PCA
+old_dim = size(featureDict(myFiles{cnt}), 1);
+new_dim = old_dim;
+if use_pca
+    fid = fopen(allFiles,'r');
+    myData = textscan(fid,'%s');
+    fclose(fid);
+    fileList = myData{1};
+    wholeFeatures = zeros(length(fileList), old_dim);
+
+    for cnt = 1:length(fileList)
+        wholeFeatures(cnt,:) = featureDict(fileList{cnt});
+    end
+
+    [coeff,score,latent] = pca(wholeFeatures);
+    new_dim = sum(cumsum(latent)./sum(latent) < pca_latent_knob)+1;
+    trans_mat = coeff(:,1:new_dim);
+
+    % apply dimension reduction
+    for cnt = 1:length(myFiles)
+        featureDict(myFiles{cnt}) = transpose(featureDict(myFiles{cnt}))*trans_mat;
+    end
+end
+
 %%
 
 % Train the classifier
@@ -47,7 +92,7 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 trainLabels = myData{3};
-trainFeatures = zeros(length(trainLabels),10);
+trainFeatures = zeros(length(trainLabels), new_dim);
 parfor cnt = 1:length(trainLabels)
     trainFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end
@@ -62,7 +107,7 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 testLabels = myData{3};
-testFeatures = zeros(length(testLabels),10);
+testFeatures = zeros(length(testLabels), new_dim);
 parfor cnt = 1:length(testLabels)
     testFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end

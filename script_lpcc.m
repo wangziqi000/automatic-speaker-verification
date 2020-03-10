@@ -5,9 +5,11 @@
 % clear all;
 % clc;
 %%
+% load('featureDictLPCC.mat');
+
 % Define lists
 allFiles = 'allFiles.txt';
-trainList = 'train_phone_trials.txt';  
+trainList = 'train_read_trials.txt';  
 testList = 'test_read_trials.txt';
 
 tic
@@ -18,16 +20,13 @@ fid = fopen(allFiles);
 myData = textscan(fid,'%s');
 fclose(fid);
 myFiles = myData{1};
-wholeFeatures = zeros(length(myFiles), 450);
 for cnt = 1:length(myFiles)
     [snd,fs] = audioread(myFiles{cnt});
-    Window_Length = 20;
-    NFFT = 512;
-    No_Filter = 450;
     try
-        [stat,delta,double_delta] = extract_lfcc(snd,fs,Window_Length,NFFT,No_Filter); 
-        featureDict(myFiles{cnt}) = mean(stat,1);
-        wholeFeatures(cnt,:) = mean(stat,1);
+        a = lpc(snd,6);
+        lpc2cc = dsp.LPCToCepstral;
+        CC = step(lpc2cc,transpose(a));
+        featureDict(myFiles{cnt}) = CC;
     catch
         disp(["No features for the file ", myFiles{cnt}]);
     end
@@ -36,22 +35,9 @@ for cnt = 1:length(myFiles)
         disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles)),' files.']);
     end
 end
+% save('featureDictLPCC');
 
-
-% PCA dimemsion reduction
-[coeff,score,latent] = pca(wholeFeatures);
-new_dim = sum(cumsum(latent)./sum(latent)<0.99999)+1;
-trans_mat = coeff(:,1:new_dim);
-
-% apply dimension reduction
-for cnt = 1:length(myFiles)
-    featureDict(myFiles{cnt}) = featureDict(myFiles{cnt})*trans_mat;
-end
-
-% save('featureDictMFCC_delta_delta2');
-% load('featureDictMFCC.mat');
 %%
-
 % Train the classifier
 fid = fopen(trainList,'r');
 myData = textscan(fid,'%s %s %f');
@@ -59,7 +45,7 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 trainLabels = myData{3};
-trainFeatures = zeros(length(trainLabels),new_dim);
+trainFeatures = zeros(length(trainLabels),10);
 parfor cnt = 1:length(trainLabels)
     trainFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end
@@ -74,7 +60,7 @@ fclose(fid);
 fileList1 = myData{1};
 fileList2 = myData{2};
 testLabels = myData{3};
-testFeatures = zeros(length(testLabels), new_dim);
+testFeatures = zeros(length(testLabels),10);
 parfor cnt = 1:length(testLabels)
     testFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end

@@ -1,13 +1,14 @@
-function[features] = vcc_vox_net(snd)
+function[features] = vcc_vox_net_x1_vgg(snd)
 %% Set up VGGVox
     addpath("VGGVox-master")
     setup_VGGVox()
-     
+   
     opts.modelPath = '' ;
+    % opts.gpu = 3;
     opts.gpu = 0;
-
-    % Load or download the VGGVox model for Verification pretrained on VoxCeleb2
-    modelName = 'ver_net.mat' ;
+    
+    % Load or download the VGGVox model for Verification
+    modelName = 'vggvox_ver_net.mat' ;
     paths = {opts.modelPath, ...
         modelName, ...
         fullfile(vl_rootnn, 'data', 'models-import', modelName)} ;
@@ -17,21 +18,27 @@ function[features] = vcc_vox_net(snd)
         fprintf('Downloading the VGGVox model for Verification ... this may take a while\n') ;
         opts.modelPath = fullfile(vl_rootnn, 'data/models-import', modelName) ;
         mkdir(fileparts(opts.modelPath)) ; base = 'http://www.robots.ox.ac.uk' ;
-        url = sprintf('%s/~vgg/data/voxceleb2/%s', base, modelName) ;
+        url = sprintf('%s/~vgg/data/voxceleb/models/%s', base, modelName) ;
         urlwrite(url, opts.modelPath) ;
     else
         opts.modelPath = paths{ok} ;
     end
     load(opts.modelPath); net = dagnn.DagNN.loadobj(netStruct);
 
+    % Remove loss layers and add distance layer
+    names = {'loss'} ;
+    for i = 1:numel(names)
+        layer = net.layers(net.getLayerIndex(names{i})) ;
+        net.removeLayer(names{i}) ;
+        net.renameVar(layer.outputs{1}, layer.inputs{1}, 'quiet', true) ;
+    end
+    net.addLayer('dist', dagnn.PDist('p',2), {'x1_s1', 'x1_s2'}, 'distance');
+
+
    
 %% Set up audio
 
-    snd = resample(snd, 320, 441); % from 22050 to 16000
-    
-%     % attempt to mimic phone call
-%     down_sampled_version = decimate(snd, 2);
-%     snd = resample(down_sampled_version, 2, 1); % make sure that the size agree
+    snd = resample(snd, 320, 441); % from 22050 to 16000 
 
     opt.audio.window   = [0 1];
     opt.audio.fs       = 16000;
@@ -61,11 +68,9 @@ function[features] = vcc_vox_net(snd)
 
     p1 = buckets.pool(s1==buckets.width);
 
-    ind1 = net.getLayerIndex('pool_time_b1'); 
+    net.layers(22).block.poolSize=[1 p1];
 
-    net.layers(ind1).block.poolSize=[1 p1];
-
-    net.eval({ 'data_b1', inp1 });
+    net.eval({ 'input_b1', inp1 });
 
     featid = strcmp({net.vars.name},'x1_s1');
     features = squeeze(net.vars(featid).value);

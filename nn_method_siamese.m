@@ -5,11 +5,13 @@
 % clear all;
 % clc;
 %%
+load('featureVGGVox_x0.mat')
+
 % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
 testList = 'test_mismatch_trials.txt';
-% 
+% for read-mismatch, the EER is 28%.
 tic
 %
 % % Extract features
@@ -32,7 +34,7 @@ tic
 %     end
 % end
 % save('featureVGGVox_x0');
-load('featureVGGVox_x0.mat')
+
 
 %% pca
 % fid = fopen(allFiles,'r');
@@ -53,6 +55,7 @@ load('featureVGGVox_x0.mat')
 % for cnt = 1:length(myFiles)
 %     featureDict(myFiles{cnt}) = transpose(featureDict(myFiles{cnt}))*trans_mat;
 % end
+
 new_dim = size(feat, 1);
 %%
 
@@ -89,13 +92,7 @@ testScores = (prediction(:,2)./(prediction(:,1)+1e-15));
 disp(['The EER is ',num2str(eer),'%.']);
 
 toc
-%%
-
-
-
-
-
-
+%% The scirpt below is much slower
 
 % %##############################################################
 % % Sample script to perform short utterance speaker verficiation
