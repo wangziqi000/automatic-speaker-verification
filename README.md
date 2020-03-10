@@ -195,3 +195,9 @@ feature num = 70 (use score_gplda)
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   29.8%   |   34.4%     |     36%    |
 | Phone-Phone |   30.6%   |   30.4%     |    34.8%   |
+
+feature num = 69 (not use score_gplda)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |   30%     |   34.4526%  |   35.6421% |
+| Phone-Phone |   30.8%   |   33%       |    36.4%   |
