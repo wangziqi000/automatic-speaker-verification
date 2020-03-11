@@ -74,8 +74,7 @@ for cnt = 1:length(feature_types)
 end
 feature_count = feature_count - 1;
 disp(valid_features);
-self_defined_feature_set = {
-    {'A1'     }
+self_defined_feature_set = {{'A1'     }
     {'A2'     }
     {'A3'     }
     {'CPP'    }

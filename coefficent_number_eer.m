@@ -12,7 +12,7 @@ use_delta_delta = 0;
 enable_fusion = 0;
 
 max_num_coeff = 750;
-incr = 5;
+incr = 3;
 eer_array = zeros(length(1:incr:max_num_coeff), 1);
 
 for num_coeffs = 1 : incr : max_num_coeff
@@ -27,4 +27,4 @@ for num_coeffs = 1 : incr : max_num_coeff
 end
 
 figure()
-plot(1:max_num_coeff, eer_array);
+plot(1:incr:max_num_coeff, eer_array(1:incr:max_num_coeff));
