@@ -1,4 +1,7 @@
 WavData/*
+WavData_clean/*
+WavData_dirty/*
+WavData*
 *.wav
 *.mat
 VGGVox-master/*.mat
