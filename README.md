@@ -28,11 +28,18 @@ feature num = 10
 | Phone-Phone |   35%     |   30.5684%  |   43.6%    |
 
 ### LPC
-feature num = 9
+order = 48
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   37.6%   |   40.8%     |   46.6%    |
-| Phone-Phone |   37.2%   |   40.4%     |   46.8%    |
+|  Read-Read  |   35.6%   |   37.6%     |   45.7579% |
+| Phone-Phone |   35.9684%|   37.8842%  |   47.4316% |
+
+### LPCC
+order = 48, number of coeffs = 10
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  | 29.7474%  |    26.8%    |   41.2%    |
+| Phone-Phone |   30.8%   |    27.6%    |   40.6%    |
 
 ### LPCC
 feature num = 10
