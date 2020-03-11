@@ -196,14 +196,20 @@ feature num = 70 (use score_gplda)
 |  Read-Read  |   29.8%   |   34.4%     |     36%    |
 | Phone-Phone |   30.6%   |   30.4%     |    34.8%   |
 
-feature num = 69
+feature num = 69, NumCoeffs = 13, nMix = 32
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   30%     |   34.4526%  |   35.6421% |
 | Phone-Phone |   30.8%   |   33%       |    36.4%   |
 
-feature num = 69, NumCoeffs for MFCC = 40
+feature num = 69, NumCoeffs = 40, nMix = 32
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |  32.1263% |   36.7474%  |   39.7053% |
 | Phone-Phone |   33%     |   35.2%     |    40.6%   |
+
+feature num = 69, NumCoeffs = 13, nMix = 256
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  35.7474% |   31.8%     |   38.5789% |
+| Phone-Phone |   36.6%   |   34.2947%  |  37.0842%  |
