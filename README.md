@@ -234,3 +234,11 @@ feature num = 69, NumCoeffs = 13, nMix = 256
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |  30.5263% |   34.4%     |   37.4%    |
 | Phone-Phone |   32.2%   |   34%       |  37.4421%  |
+
+feature num = 69, NumCoeffs = 13, nMix = 256
+
+(ubm, T trained from large dataset)(use score_gplda)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  33.2%    |   32%       |   36.5895% |
+| Phone-Phone |  30.8105% |   31.8%     |  35.2737%  |
