@@ -220,3 +220,9 @@ feature num = 69, NumCoeffs = 13, nMix = 256
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |  35.7474% |   31.8%     |   38.5789% |
 | Phone-Phone |   36.6%   |   34.2947%  |  37.0842%  |
+
+feature num = 69, NumCoeffs = 13, nMix = 512
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  32.0947% |   31.8%     |   37.4%    |
+| Phone-Phone |   33.2%   |   30.6%     |  35.6737%  |
