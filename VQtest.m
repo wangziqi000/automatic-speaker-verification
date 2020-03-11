@@ -6,13 +6,13 @@
 % clc;
 %%
 % load('featureVQtest.mat')
-use_pca = 1;
+use_pca = 0;
 pca_latent_knob = 0.99999;
 
 % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
-testList = 'test_mismatch_trials.txt';
+testList = 'test_read_trials.txt';
 
 tic
 %
@@ -73,53 +73,56 @@ for cnt = 1:length(feature_types)
     end
 end
 feature_count = feature_count - 1;
-disp(valid_features);
+% disp(valid_features);
 self_defined_feature_set = {
-    {'A1'     }
-    {'A2'     }
-    {'A3'     }
-    {'CPP'    }
-    {'Energy' }
-    {'F2K'    }
-    {'H1'     }
-    {'H1A1c'  }
-    {'H1A2c'  }
-    {'H1A3c'  }
-    {'H1H2c'  }
-    {'H2'     }
-    {'H2H4c'  }
-    {'H2K'    }
-    {'H2KH5Kc'}
-    {'H4'     }
-    {'H42Kc'  }
-    {'H5K'    }
-    {'HNR05'  }
-    {'HNR15'  }
-    {'HNR25'  }
-    {'HNR35'  }
-    {'SHR'    }
-    {'pB1'    }
-    {'pB2'    }
-    {'pB3'    }
-    {'pF0'    }
-    {'pF1'    }
-    {'pF2'    }
-    {'pF3'    }
-    {'shrF0'  }
-    {'soe'    }
-    {'strF0'  }};
+    'A1'     ,...
+    'A2'     ,...
+    'A3'     ,...
+    'CPP'    ,...
+    'F2K'    ,...
+    'H1'     ,...
+    'H1A1c'  ,...
+    'H1A2c'  ,...
+    'H1A3c'  ,...
+    'H1H2c'  ,...
+    'H2'     ,...
+    'H2H4c'  ,...
+    'H2K'    ,...
+    'H2KH5Kc',...
+    'H4'     ,...
+    'H42Kc'  ,...
+    'H5K'    ,...
+    'pB1'    ,...
+    'pB2'    ,...
+    'pB3'    ,...
+    'pF0'    ,...
+    'pF1'    ,...
+    'pF2'    ,...
+    'pF3'    ,...
+    'SHR'    ,...
+    'Energy' ,...
+    'HNR05'  ,...
+    'HNR15'  ,...
+    'HNR25'  ,...
+    'HNR35'  ,...
+    'shrF0'  ,...
+    'strF0'
+};
+
+
+
 
 for cnt = 1:length(myFiles)
     [snd,fs] = audioread(myFiles{cnt});
     
-    try
+%     try
         feature_save_name = split(myFiles{cnt}, ".");
         feature_save_name = feature_save_name{1} + ".mat";
         ftr = load(feature_save_name);
         feature = [];
         fn = fieldnames(ftr);
         for i = 1:length(fn)
-           if ismember(fn{i}, valid_features)
+           if ismember(fn{i}, valid_features) && ismember(fn{i}, self_defined_feature_set)
                valid_index = ~isnan(ftr.(fn{i}));
                feature_temp = ftr.(fn{i});
                feature_temp = feature_temp( valid_index );
@@ -127,13 +130,13 @@ for cnt = 1:length(myFiles)
            end
         end
         featureDict(myFiles{cnt}) = feature;
-        if size(feature) ~= feature_count
-            disp("Invalid feature number!");
-        end
+%         if size(feature) ~= feature_count
+%             disp("Invalid feature number!");
+%         end
         
-    catch
-        disp(["No features for the file ", myFiles{cnt}]);
-    end
+%     catch
+%         disp(["No features for the file ", myFiles{cnt}]);
+%     end
     
     if(mod(cnt,100)==0)
         disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles)),' files.']);

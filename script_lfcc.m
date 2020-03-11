@@ -17,7 +17,7 @@ use_pca = 1;
 pca_latent_knob = 0.99999;
 
 num_coeffs = 450;
-use_delta = 0;
+use_delta = 1;
 use_delta_delta = 0;
 
 tic

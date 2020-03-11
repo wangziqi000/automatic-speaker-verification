@@ -13,11 +13,11 @@ allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
 testList = 'test_read_trials.txt';
 
-use_pca = 0;
-pca_latent_knob = 0.99999;
+use_pca = 1;
+pca_latent_knob = 0.999;
 
 num_coeffs = 40;
-use_delta = 0;
+use_delta = 1;
 use_delta_delta = 0;
 
 tic
