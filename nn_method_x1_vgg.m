@@ -11,7 +11,7 @@ load('featureVGGVox_x1_vgg.mat')
 % % Define lists
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
-testList = 'test_mismatch_trials.txt';
+testList = 'test_read_trials.txt';
 % for read-mismatch, the EER is 32.4%.
 
 tic

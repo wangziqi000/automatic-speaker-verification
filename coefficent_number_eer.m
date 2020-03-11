@@ -11,16 +11,18 @@ use_delta_delta = 0;
 
 enable_fusion = 0;
 
-max_num_coeff = 500;
-eer_array = zeros(max_num_coeff, 1);
+max_num_coeff = 750;
+incr = 5;
+eer_array = zeros(length(1:incr:max_num_coeff), 1);
 
-parfor num_coeffs = 1:max_num_coeff
+for num_coeffs = 1 : incr : max_num_coeff
 
-    [trainEER, testScores, testLabels, eer] =  fun_cqcc( ...
+    [trainEER, testScores, testLabels, eer] =  fun_lfcc( ...
     allFiles, trainList, testList, use_pca, pca_latent_knob, ...
     num_coeffs, use_delta, use_delta_delta, enable_fusion);
     
     eer_array(num_coeffs) = eer;
+    fprintf("Current Coeff is %d.\n", num_coeffs);
     
 end
 
