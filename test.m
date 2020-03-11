@@ -7,7 +7,7 @@ testList = 'test_read_trials.txt';
 use_pca = 0;
 pca_latent_knob = 0.99999;
 
-num_coeffs = 40;
+num_coeffs = 33;
 use_delta = 0;
 use_delta_delta = 0;
 
