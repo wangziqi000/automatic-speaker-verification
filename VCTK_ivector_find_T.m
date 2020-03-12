@@ -30,7 +30,7 @@ niter = 5;
 T = train_tv_space(stats(:), ubm, tvDim, niter, nWorkers);
 disp('T trained');
 
-save(['VCTK_nmix256_tvDim', num2str(tvDim), '_T'],'T');
+save(['VCTK_nmix',num2str(nmix),'_tvDim', num2str(tvDim), '_T'],'T');
 
 end
 %%
