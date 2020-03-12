@@ -1,8 +1,5 @@
 function T = VCTK_ivector_find_T(nmix, tvDim, nWorkers)
 %%
-clear all;clc;
-
-%%
 % dimension information
 nSpeaker = 103;
 nChannel = 420;
