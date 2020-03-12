@@ -197,37 +197,39 @@ feature num = 20 (apply dimension reduction)
 
 ### i-Vector (vanilla_ivector.m)
 #### Exclude delta, delta^2
-feature num = 70 (use score_gplda)
+feature num = 70, NumCoeffs = 13, nMix = 32, tvDim = 100
+
+(use score_gplda)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   29.8%   |   34.4%     |     36%    |
 | Phone-Phone |   30.6%   |   30.4%     |    34.8%   |
 
-feature num = 69, NumCoeffs = 13, nMix = 32
+feature num = 69, NumCoeffs = 13, nMix = 32, tvDim = 100
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   30%     |   34.4526%  |   35.6421% |
 | Phone-Phone |   30.8%   |   33%       |    36.4%   |
 
-feature num = 69, NumCoeffs = 40, nMix = 32
+feature num = 69, NumCoeffs = 40, nMix = 32, tvDim = 100
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |  32.1263% |   36.7474%  |   39.7053% |
 | Phone-Phone |   33%     |   35.2%     |    40.6%   |
 
-feature num = 69, NumCoeffs = 13, nMix = 256
+feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 100
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |  35.7474% |   31.8%     |   38.5789% |
 | Phone-Phone |   36.6%   |   34.2947%  |  37.0842%  |
 
-feature num = 69, NumCoeffs = 13, nMix = 512
+feature num = 69, NumCoeffs = 13, nMix = 512, tvDim = 100
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |  32.0947% |   31.8%     |   37.4%    |
 | Phone-Phone |   33.2%   |   30.6%     |  35.6737%  |
 
-feature num = 69, NumCoeffs = 13, nMix = 256
+feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 100
 
 (ubm, T trained from large dataset)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
@@ -235,10 +237,18 @@ feature num = 69, NumCoeffs = 13, nMix = 256
 |  Read-Read  |  30.5263% |   34.4%     |   37.4%    |
 | Phone-Phone |   32.2%   |   34%       |  37.4421%  |
 
-feature num = 69, NumCoeffs = 13, nMix = 256
+feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 100
 
 (ubm, T trained from large dataset)(use score_gplda)
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |  33.2%    |   32%       |   36.5895% |
 | Phone-Phone |  30.8105% |   31.8%     |  35.2737%  |
+
+feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 200
+
+(ubm, T trained from large dataset)
+|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
+|:-----------:|:---------:|:-----------:|:----------:|
+|  Read-Read  |  20.6211% |   19.6%     |   22.2%    |
+| Phone-Phone |   18.6%   |   20%       |   21.8%    |
