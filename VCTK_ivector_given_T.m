@@ -1,8 +1,5 @@
 function [trainEER, testScores, testLabels, eer] = VCTK_ivector_given_T(allFiles, trainList, testList, nmix, tvDim, nWorkers, use_score, enable_fusion)
 %%
-clear all;clc;
-
-%%
 % dimension information
 nSpeaker = 103;
 nChannel = 420;
