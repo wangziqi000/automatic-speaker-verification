@@ -1,8 +1,8 @@
-function [testScores] = blind_mfcc(allFiles, trainList, testList, ...
+function [testScores] = blind_lfcc(allFiles, trainList, testList, ...
     blind_list, blind_trials, use_pca, pca_latent_knob, num_coeffs,...
     use_delta, use_delta_delta)
 
-    eval_prediction = 'ziqi_qiong_yuchun_blind_label_mfcc.txt'; % change it to your group member's name
+    eval_prediction = 'ziqi_qiong_yuchun_blind_label_lfcc.txt'; % change it to your group member's name
     tic
     %
     %% Extract features
@@ -13,14 +13,17 @@ function [testScores] = blind_mfcc(allFiles, trainList, testList, ...
     myFiles = myData{1};
     for cnt = 1:length(myFiles)
         [snd,fs] = audioread(myFiles{cnt});
+        Window_Length = 20;
+        NFFT = 512;
+        No_Filter = num_coeffs;
         try
-            [coeffs,delta,deltaDelta,loc] = mfcc(snd,fs, "NumCoeffs", num_coeffs);
+            [stat,delta,double_delta] = extract_lfcc(snd,fs,Window_Length,NFFT,No_Filter); 
             if use_delta_delta == 1
-                featureDict1(myFiles{cnt}) = mean([coeffs,delta,deltaDelta]', 2);
+                featureDict1(myFiles{cnt}) = mean([stat,delta,double_delta]', 2);
             elseif use_delta == 1
-                featureDict1(myFiles{cnt}) = mean([coeffs,delta]', 2);
+                featureDict1(myFiles{cnt}) = mean([stat,delta]', 2);
             else 
-                featureDict1(myFiles{cnt}) = mean(coeffs', 2);
+                featureDict1(myFiles{cnt}) = mean(stat', 2);
             end
         catch
             disp(["No features for the file ", myFiles{cnt}]);
@@ -40,14 +43,17 @@ function [testScores] = blind_mfcc(allFiles, trainList, testList, ...
     myFiles2 = myData2{1};
     for cnt = 1:length(myFiles2)
         [snd,fs] = audioread(myFiles2{cnt});
+        Window_Length = 20;
+        NFFT = 512;
+        No_Filter = num_coeffs;
         try
-            [coeffs,delta,deltaDelta,loc] = mfcc(snd,fs, "NumCoeffs", num_coeffs);
+            [stat,delta,double_delta] = extract_lfcc(snd,fs,Window_Length,NFFT,No_Filter); 
             if use_delta_delta == 1
-                featureDict2(myFiles2{cnt}) = mean([coeffs,delta,deltaDelta]', 2);
+                featureDict2(myFiles2{cnt}) = mean([stat,delta,double_delta]', 2);
             elseif use_delta == 1
-                featureDict2(myFiles2{cnt}) = mean([coeffs,delta]', 2);
+                featureDict2(myFiles2{cnt}) = mean([stat,delta]', 2);
             else 
-                featureDict2(myFiles2{cnt}) = mean(coeffs', 2);
+                featureDict2(myFiles2{cnt}) = mean(stat', 2);
             end
         catch
             disp(["No features for the file ", myFiles2{cnt}]);
@@ -145,7 +151,7 @@ function [testScores] = blind_mfcc(allFiles, trainList, testList, ...
     fprintf(fid,'%f\n',testScores);
     fclose(fid);
 
-    filename = 'blind_testscore_mfcc.mat';
+    filename = 'blind_testscore_lfcc.mat';
     save(filename)
 
 
