@@ -5,7 +5,6 @@ WavData*
 original_WavData*
 bind_WaveData*
 *.wav
-*.mat
 supporting_functions/VGGVox-master/*.mat
 matlab_cached_variables/**
 SomeResults.md
