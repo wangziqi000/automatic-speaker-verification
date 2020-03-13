@@ -52,10 +52,10 @@ function [testScores] = blind_nn(allFiles, trainList, testList, blind_list, ...
                 feat = vcc_vox_net(snd);
                 featureDict2(myFiles2{cnt}) = feat;
             catch
-                disp(["No features for the file ", myFiles{cnt}]);
+                disp(["No features for the file ", myFiles2{cnt}]);
             end
 
-            if(mod(cnt,50)==0)
+            if(mod(cnt,1)==0)
                 disp(['Completed ',num2str(cnt),' of ',num2str(length(myFiles2)),' files.']);
             end
         end
@@ -102,7 +102,7 @@ function [testScores] = blind_nn(allFiles, trainList, testList, blind_list, ...
     trainLabels = myData{3};
     trainFeatures = zeros(length(trainLabels), new_dim);
     for cnt = 1:length(trainLabels)
-        trainFeatures(cnt) = -abs(featureDict1(fileList1{cnt})-featureDict1(fileList2{cnt}));
+        trainFeatures(cnt,:) = -abs(featureDict1(fileList1{cnt})-featureDict1(fileList2{cnt}));
     end
 
     Mdl = fitcknn(trainFeatures,trainLabels,'NumNeighbors',15000,'Standardize',1);
@@ -121,16 +121,13 @@ function [testScores] = blind_nn(allFiles, trainList, testList, blind_list, ...
     testLabels = myData{3};
     testFeatures = zeros(length(testLabels), new_dim);
     for cnt = 1:length(testLabels)
-        testFeatures(cnt) = -abs(featureDict1(fileList1{cnt})-featureDict1(fileList2{cnt}));
+        testFeatures(cnt,:) = -abs(featureDict1(fileList1{cnt})-featureDict1(fileList2{cnt}));
     end
 
     [~,prediction,~] = predict(Mdl,testFeatures);
     testScores = (prediction(:,2)./(prediction(:,1)+1e-15));
     [eer,~] = compute_eer(testScores, testLabels);
     disp(['The EER is ',num2str(eer),'%.']);
-
-    toc
-
 
     %% Blind Evaluation
 
@@ -141,9 +138,9 @@ function [testScores] = blind_nn(allFiles, trainList, testList, blind_list, ...
     fileList1 = myData{1};
     fileList2 = myData{2};
     % testLabels = myData{3};
-    testFeatures2 = zeros(length(fileList1),1);
+    testFeatures2 = zeros(length(fileList1), new_dim);
     for cnt = 1:length(fileList1)
-        testFeatures2(cnt) = -abs(featureDict2(fileList1{cnt})-featureDict2(fileList2{cnt}));
+        testFeatures2(cnt, :) = -abs(featureDict2(fileList1{cnt})-featureDict2(fileList2{cnt}));
     end
 
     [~,prediction,~] = predict(Mdl,testFeatures2);

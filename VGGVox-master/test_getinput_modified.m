@@ -8,6 +8,9 @@ function inp = test_getinput_modified(snd,meta,buckets)
 
     rsize 	= buckets.width(find(buckets.width(:)<=size(nSPEC,2),1,'last'));
     rstart  = round((size(nSPEC,2)-rsize)/2);
+    if rstart == 0
+        rstart = 1;
+    end
 
 % 	inp(:,:) = gpuArray(single(nSPEC(:,rstart:rstart+rsize-1)));
     inp(:,:) = single(nSPEC(:,rstart:rstart+rsize-1));
