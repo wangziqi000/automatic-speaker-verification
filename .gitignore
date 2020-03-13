@@ -7,8 +7,7 @@ bind_WaveData*
 *.wav
 *.mat
 supporting_functions/VGGVox-master/*.mat
-matlab_cached_variables/*.mat
-matlab_cached_variables/blind_test_scores/*
+matlab_cached_variables/**
 SomeResults.md
 .DS_Store
 
