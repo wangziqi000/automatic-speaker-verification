@@ -1,6 +1,6 @@
 %##############################################################
-% Sample script to perform short utterance speaker verficiation
-% ECE214A: Digital Speech Processing, Winter 2020
+% This script shows the effort to use the concatenation of mfcc and lpc
+% as the feature of each utterance.
 %##############################################################
 % clear all;
 % clc;

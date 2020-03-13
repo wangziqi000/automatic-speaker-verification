@@ -1,6 +1,10 @@
 %##############################################################
-% Sample script to perform short utterance speaker verficiation
-% ECE214A: Digital Speech Processing, Winter 2020
+% This script tries to extract the x0(2048 dimension) layer of the ResNet 
+% model as utterance feature vector, and use the euclidean distance between
+% pairs of feature vectors as the final 1-dim feature for KNN 
+
+% No blind test involved
+% You can ignore this script
 %##############################################################
 % clear all;
 % clc;

@@ -1,6 +1,6 @@
 %##############################################################
-% Sample script to perform short utterance speaker verficiation
-% ECE214A: Digital Speech Processing, Winter 2020
+%This script tries to extract the x0(2048 dimension) layer of the ResNet 
+% model as utterance feature vector
 %##############################################################
 % clear all;
 % clc;

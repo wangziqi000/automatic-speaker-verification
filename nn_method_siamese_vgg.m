@@ -1,6 +1,9 @@
 %##############################################################
-% Sample script to perform short utterance speaker verficiation
-% ECE214A: Digital Speech Processing, Winter 2020
+% This script tries to extract the x1(1024 dimension, the last) layer of
+% the VoxVGG model as utterance feature vector, and use the euclidean 
+% distance between pairs of feature vectors as the final 1-dim feature for KNN 
+
+% You can ignore this script
 %##############################################################
 % clear all;
 % clc;

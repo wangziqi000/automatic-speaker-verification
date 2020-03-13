@@ -1,6 +1,8 @@
 function[trainEER, testScores, testLabels, eer] =  fun_nn(allFiles, ...
     trainList, testList, use_pca, pca_latent_knob, enable_fusion) 
 
+% This function is used to generated test score and calculate eer for local
+% test data using neural network based features
 
 featureName = 'featureVGGVox_x1.mat';
 ok = exist(featureName, 'file');

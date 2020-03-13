@@ -1,3 +1,6 @@
+% This script is used in the Cepstral Coefficient methods, to look at the
+% eer vs number of coefficients, without using PCA or Delta-coefficients
+
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
 testList = 'test_read_trials.txt';
@@ -21,10 +24,10 @@ for num_coeffs = 1 : incr : max_num_coeff
     allFiles, trainList, testList, use_pca, pca_latent_knob, ...
     num_coeffs, use_delta, use_delta_delta, enable_fusion);
     
-    eer_array(num_coeffs) = eer;
+    eer_array(int64((num_coeffs-1)/incr)+1) = eer;
     fprintf("Current Coeff is %d.\n", num_coeffs);
     
 end
 
 figure()
-plot(1:incr:max_num_coeff, eer_array(1:incr:max_num_coeff));
+plot(1:incr:max_num_coeff, eer_array);

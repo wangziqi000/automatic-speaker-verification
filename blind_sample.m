@@ -73,9 +73,9 @@ Mdl = fitcknn(trainFeatures,trainLabels,'NumNeighbors',15000,'Standardize',1);
 
 %%
 % Test the classifierground_truth = 'blind_labels';
-fid = fopen(testList);
-myData = textscan(fid,'%f');
-fclose(fid);
+% fid = fopen(testList);
+% myData = textscan(fid,'%f');
+% fclose(fid);
 testLabels = myData{1};
 fid = fopen(testList);
 myData = textscan(fid,'%s %s %f');

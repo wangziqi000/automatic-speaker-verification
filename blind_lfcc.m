@@ -2,6 +2,9 @@ function [testScores] = blind_lfcc(allFiles, trainList, testList, ...
     blind_list, blind_trials, use_pca, pca_latent_knob, num_coeffs,...
     use_delta, use_delta_delta)
 
+% This function is used to generated test score for blind test data using
+% lfcc method
+
     eval_prediction = 'ziqi_qiong_yuchun_blind_label_lfcc.txt'; % change it to your group member's name
     tic
     %

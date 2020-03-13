@@ -1,7 +1,11 @@
 function[trainEER, testScores, testLabels, eer] =  fun_mfcc(allFiles, ...
     trainList, testList, use_pca, pca_latent_knob, num_coeffs, ...
     use_delta, use_delta_delta, enable_fusion) 
+% This function is used to generated test score and calculate eer for local
+% test data using mfcc features
 
+% enable_fusion = 1 means calculate training EER. Acturally it is no longer
+% used - To be removed
 % load('featureDictMFCC.mat');
 
 % Extract features

@@ -1,6 +1,9 @@
 function [testScores] = blind_nn(allFiles, trainList, testList, blind_list, ...
     blind_trials, use_pca, pca_latent_knob)
 
+% This function is used to generated test score for blind test data using
+% a pretrained neural network
+
     eval_prediction = 'ziqi_qiong_yuchun_blind_label_nn.txt'; % change it to your group member's name
 
 %% Extract features for original data
@@ -149,7 +152,7 @@ function [testScores] = blind_nn(allFiles, trainList, testList, blind_list, ...
     fprintf(fid,'%f\n',testScores);
     fclose(fid);
 
-    filename = 'testScore_nn.mat';
+    filename = 'blind_testScore_nn.mat';
     save(filename)
 end
 

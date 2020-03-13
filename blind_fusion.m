@@ -1,3 +1,6 @@
+% This file is used to generated test score for blind test data using
+% score-level fusion method
+
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
 testList = 'test_read_trials.txt';
@@ -40,7 +43,7 @@ test_score_1_norm = (test_score_1 - min(test_score_1))/(max(test_score_1) - min(
 test_score_2_norm = (test_score_2 - min(test_score_2))/(max(test_score_2) - min(test_score_2));
 test_score_3_norm = (test_score_3 - min(test_score_3))/(max(test_score_3) - min(test_score_3));
 
-testScores = (2 * test_score_1_norm + 1 * test_score_2_norm + 1 * test_score_3_norm)/ 4;
+testScores = (3 * test_score_1_norm + 1 * test_score_2_norm + 1 * test_score_3_norm)/ 5;
 fid=fopen(eval_prediction,'w');
 fprintf(fid,'%f\n',testScores);
 fclose(fid);

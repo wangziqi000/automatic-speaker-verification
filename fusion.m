@@ -1,3 +1,5 @@
+% This file is used to generated test score and eer for local test data 
+% score-level fusion method using
 allFiles = 'allFiles.txt';
 trainList = 'train_read_trials.txt';  
 testList = 'test_phone_trials.txt';

@@ -2,13 +2,23 @@
 This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 2020
 
 ## Methods
-- Pitch + LPC
-- LPCC
+(a) Source-filter based methods
+	- Pitch + LPC
+	- LPCC
+	- VQual Features
+
+(b) Cepstral Coefficients
 - LFCC
 - MFCC
-- PCA + MFCC
 - CQCC
-- PCA + CQCC
+- add delta/delta^2
+- apply PCA for dimension reduction
+
+(c) NN based methods
+
+(d) i-Vector based methods
+
+(e) Score fusion
 
 ## Results
 ### Pitch (sample.m, Baseline)
