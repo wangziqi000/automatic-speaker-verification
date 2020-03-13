@@ -5,3 +5,5 @@ WavData*
 *.wav
 *.mat
 VGGVox-master/*.mat
+bind_WaveData*
+blind_WaveData/*

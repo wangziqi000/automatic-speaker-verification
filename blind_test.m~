@@ -1,0 +1,8 @@
+allFiles = 'allFiles.txt';
+trainList = 'train_read_trials.txt';  
+testList = 'test_read_trials.txt';
+blind_list = 'blind_file_list';
+blind_trials = 'blind_trials';
+eval_prediction = 'ziqi_qiong_yuchun_blind_label.txt'; % change it to your group member's name
+
+
