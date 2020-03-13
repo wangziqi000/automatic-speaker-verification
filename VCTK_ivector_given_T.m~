@@ -140,7 +140,9 @@ trainFeatures = zeros(length(trainLabels), length(featureDict(fileList1{1})));
 parfor cnt = 1:length(trainLabels)
     trainFeatures(cnt,:) = -abs(featureDict(fileList1{cnt})-featureDict(fileList2{cnt}));
 end
-
+X = trainfeatures y = train label
+V, D lda(x,y)
+V* FEATURE_VEC
 Mdl = fitcknn(trainFeatures,trainLabels,'NumNeighbors',15000,'Standardize',1);
 
 %%
