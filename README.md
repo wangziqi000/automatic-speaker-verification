@@ -2,40 +2,42 @@
 This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 2020
 
 ## Methods
-(a) Source-filter based methods
+1. Source-filter based methods
     - Pitch + LPC
     - LPCC
     - VQual Features
 
-(b) Cepstral Coefficients
+1. Cepstral Coefficients
     - LFCC
     - MFCC
     - CQCC
     - add delta/delta^2
     - apply PCA for dimension reduction
 
-(c) NN based methods
+1. NN based methods
 
-(d) i-Vector based methods
+1. i-Vector based methods
     - use LDA, PCA
     - use cosine distance
     - detect voiced segments and remove silence
 
-(e) Score fusion
+1. Score fusion
 
 ## Usage - for Blind Test
 
 ### For TA
-Please run '[**blind_eer_for_TA.m**](blind_scores/blind_eer_for_TA.m)'. The predicted scores for blind trials are stored in /blind_scores folder, where '[ziqi_qiong_yuchun_blind_label_fusion.txt](blind_scores/ziqi_qiong_yuchun_blind_label_fusion.txt)’ is the score from the best fusion model, and '[ziqi_qiong_yuchun_blind_label_nn.txt](blind_scores/ziqi_qiong_yuchun_blind_label_nn.txt)' is that of the best single model.
+Please run '[**blind_eer_for_TA.m**](/blind_scores/blind_eer_for_TA.m)'. The predicted scores for blind trials are stored in [/blind_scores](/blind_scores)folder, where '[ziqi_qiong_yuchun_blind_label_fusion.txt](/blind_scores/ziqi_qiong_yuchun_blind_label_fusion.txt)’ is the score from the best fusion model, and '[ziqi_qiong_yuchun_blind_label_nn.txt](/blind_scores/ziqi_qiong_yuchun_blind_label_nn.txt)' is that of the best single model.
 
 Test EER results of the fusion model and the NN model are as below:
 - NN model
+
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   16.14%  |    17.49%   |     23%    |
 | Phone-Phone |   18.4%   |    17.6%    |   22.31%   |
 
 - Fusion model
+
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
 |  Read-Read  |   9.28%   |    10.17%   |    24.2%   |
@@ -58,44 +60,51 @@ This dataset is created by UCLA, SPAPL. Thus, we cannot distribute or use it out
 In the script, you have six knobs that you should prepare in advance:
 
 - allFiles = '[allFiles.txt](filelists/allFiles.txt)'; 
+
 A list including all your sound files dataset for training and validation. A typical line looks like “speaker1_sentence_001.wav\n”.
 
 - trainList = '[train_read_trials.txt](filelists/train_read_trials.txt)';
+
 including speech pairs and labels for model training.
 Typical lines look like this: 
+
 “Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
+
 “Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
 
 - testList = '[test_read_trials.txt](filelists/test_read_trials.txt)'; 
 Speech pairs and labels for model testing(validation). 
 
 - blind_list = '[blind_file_list](filelists/blind_file_list)'; 
+
 A list including all your sound dataset filenames for blind test.
 
 - blind_trials = '[blind_trials](filelists/blind_trials)';
+
 Speech pairs for your blind test.
 
-- ground_truth = 'blind_labels'
+- ground_truth = 'blind_labels';
+
 Corresponding labels for your blind list pairs.
 
 
 ## Credits - References and inspirations of the implementation
 
-(a) Source-filter based methods
+1. Source-filter based methods
     - Pitch + LPC
     - LPCC https://www.mathworks.com/help/dsp/ref/dsp.lpctocepstral-system-object.html
     - VQual Features http://www.phonetics.ucla.edu/voicesauce/
 
-(b) Cepstral Coefficients
+1. Cepstral Coefficients
     - LFCC https://www.asvspoof.org/asvspoof2019/ASVspoof_2019_baseline_CM_v1.zip
     - MFCC
     - CQCC https://www.asvspoof.org/asvspoof2019/ASVspoof_2019_baseline_CM_v1.zip
     - add delta/delta^2
     - apply PCA for dimension reduction
 
-(c) NN based methods
+1. NN based methods
     - https://github.com/a-nagrani/VGGVox
 
-(d) i-Vector based methods
+1. i-Vector based methods
     - https://github.com/SatyamGaba/Speaker-Recognition
 
