@@ -26,7 +26,7 @@ This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 20
 ## Usage - for Blind Test
 
 ### For TA
-Please run '[**blind_eer_for_TA.m**](/blind_scores/blind_eer_for_TA.m)'. The predicted scores for blind trials are stored in [/blind_scores](/blind_scores)folder, where '[ziqi_qiong_yuchun_blind_label_fusion.txt](/blind_scores/ziqi_qiong_yuchun_blind_label_fusion.txt)’ is the score from the best fusion model, and '[ziqi_qiong_yuchun_blind_label_nn.txt](/blind_scores/ziqi_qiong_yuchun_blind_label_nn.txt)' is that of the best single model.
+Please run '[**blind_eer_for_TA.m**](/blind_scores/blind_eer_for_TA.m)'. The predicted scores for blind trials are stored in [/blind_scores](/blind_scores) folder, where '[ziqi_qiong_yuchun_blind_label_fusion.txt](/blind_scores/ziqi_qiong_yuchun_blind_label_fusion.txt)’ is the score from the best fusion model, and '[ziqi_qiong_yuchun_blind_label_nn.txt](/blind_scores/ziqi_qiong_yuchun_blind_label_nn.txt)' is that of the best single model.
 
 Test EER results of the fusion model and the NN model are as below:
 - NN model
@@ -61,31 +61,32 @@ In the script, you have six knobs that you should prepare in advance:
 
 - allFiles = '[allFiles.txt](filelists/allFiles.txt)'; 
 
-A list including all your sound files dataset for training and validation. A typical line looks like “speaker1_sentence_001.wav\n”.
+    A list including all your sound files dataset for training and validation. A typical line looks like “speaker1_sentence_001.wav\n”.
 
 - trainList = '[train_read_trials.txt](filelists/train_read_trials.txt)';
 
-including speech pairs and labels for model training.
-Typical lines look like this: 
+    including speech pairs and labels for model training.
+    Typical lines look like this: 
 
-“Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
+    “Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
 
-“Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
+    “Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
 
 - testList = '[test_read_trials.txt](filelists/test_read_trials.txt)'; 
-Speech pairs and labels for model testing(validation). 
+
+    Speech pairs and labels for model testing(validation). 
 
 - blind_list = '[blind_file_list](filelists/blind_file_list)'; 
 
-A list including all your sound dataset filenames for blind test.
+    A list including all your sound dataset filenames for blind test.
 
 - blind_trials = '[blind_trials](filelists/blind_trials)';
 
-Speech pairs for your blind test.
+    Speech pairs for your blind test.
 
 - ground_truth = 'blind_labels';
 
-Corresponding labels for your blind list pairs.
+    Corresponding labels for your blind list pairs.
 
 
 ## Credits - References and inspirations of the implementation
