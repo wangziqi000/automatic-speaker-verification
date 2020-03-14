@@ -3,262 +3,99 @@ This is the final project of ECE M214 Digital Speech Processing, UCLA, Winter 20
 
 ## Methods
 (a) Source-filter based methods
-	- Pitch + LPC
-	- LPCC
-	- VQual Features
+    - Pitch + LPC
+    - LPCC
+    - VQual Features
 
 (b) Cepstral Coefficients
-- LFCC
-- MFCC
-- CQCC
-- add delta/delta^2
-- apply PCA for dimension reduction
+    - LFCC
+    - MFCC
+    - CQCC
+    - add delta/delta^2
+    - apply PCA for dimension reduction
 
 (c) NN based methods
 
 (d) i-Vector based methods
+    - use LDA, PCA
+    - use cosine distance
+    - detect voiced segments and remove silence
 
 (e) Score fusion
 
-## Results
-### Pitch (sample.m, Baseline)
-feature num = 1
+## Usage - for Blind Test
+
+### For TA
+Please run '[**blind_eer_for_TA.m**](blind_scores/blind_eer_for_TA.m)'. The predicted scores for blind trials are stored in /blind_scores folder, where '[ziqi_qiong_yuchun_blind_label_fusion.txt](blind_scores/ziqi_qiong_yuchun_blind_label_fusion.txt)’ is the score from the best fusion model, and '[ziqi_qiong_yuchun_blind_label_nn.txt](blind_scores/ziqi_qiong_yuchun_blind_label_nn.txt)' is that of the best single model.
+
+Test EER results of the fusion model and the NN model are as below:
+- NN model
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   39.40%  |   40.7684%  |   45.20%   |
-| Phone-Phone |   39.00%  |   40.8974%  |    44.8%   |
+|  Read-Read  |   16.14%  |    17.49%   |     23%    |
+| Phone-Phone |   18.4%   |    17.6%    |   22.31%   |
 
-### Pitch + LPC (pitch_and_lpc.m)
-Resample to 8000Hz
-
-feature num = 10
+- Fusion model
 |  Train/Test | Read-Read | Phone-Phone | Read-Phone |
 |:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   35.2%   |   32%       |   43.4%    |
-| Phone-Phone |   35%     |   30.5684%  |   43.6%    |
+|  Read-Read  |   9.28%   |    10.17%   |    24.2%   |
+| Phone-Phone |   10.8%   |     10%     |    23.4%   |
 
-### LPC
-order = 48
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   35.6%   |   37.6%     |   45.7579% |
-| Phone-Phone |   35.9684%|   37.8842%  |   47.4316% |
+### For Fusion Scores
+Run '[blind_fusion.m](blind_fusion.m)'. You can play with score fusion weights here. 
+If you want to play with each feature, you can write a script with the function 'blind_FEATURE.m'. Sample scripts are included in '[blind_test.m](blind_test.m)'.
 
-### LPCC
-order = 48, number of coeffs = 10
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 29.7474%  |    26.8%    |   41.2%    |
-| Phone-Phone |   30.8%   |    27.6%    |   40.6%    |
-
-### LPCC
-feature num = 10
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 33.9263%  |      32.8%  | 43.4211%   |
-| Phone-Phone |   34%     |      32%    | 42.7158%   |
-
-### LFCC (vanilla_lfcc.m)
-#### Include delta, delta^2
-Window_Length = 20, NFFT = 512, No_Filter = 30
-
-feature num = 90
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  22.8%    |    %   |    %   |
-| Phone-Phone |  % |    %    |    %   |
-
-#### Include delta, delta^2
-Window_Length = 20, NFFT = 512, No_Filter = 50
-
-feature num = 150
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  24.1263% |    %   |    %   |
-| Phone-Phone |  % |    %    |    %   |
-
-#### Exclude delta, delta^2
-Window_Length = 20, NFFT = 512, No_Filter = 50
-
-feature num = 50
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |    22%    |    22.8%   |    36.8%   |
-| Phone-Phone |  21.7474% |    22.8%    |    37.2%   |
-
-### PCA + LFCC (vanilla_lfcc.m)
-#### Exclude delta, delta^2
-Window_Length = 20, NFFT = 512, No_Filter = 450
-
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  11.7895% |    20.2%    |    41.8%   |
-| Phone-Phone |  13.4%    |    19.4%    |    41.2%   |
-
-### MFCC (vanilla_mfcc.m)
-#### Include delta, delta^2
-feature num = 42
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   21.4%   |   17.6%     |   37.8%    |
-| Phone-Phone |   23.2%   |   18.4%     |   37.8%    |
-
-#### Exclude delta, delta^2
-feature num = 14
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   21.2%   |   18%       |   38.2%    |
-| Phone-Phone |   21.6%   |   18.8%     |   38.2%    |
-
-### PCA + MFCC (pca_mfcc.m)
-#### NumCoeffs = 40; Exclude delta, delta^2
-feature num = 41
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 14.7474%  |   18.4%     |   39%      |
-| Phone-Phone |   15.8%   |   17.6%     |   38.1579% |
-
-#### NumCoeffs = 40; Include delta, delta^2
-feature num = 48
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   14.4%   |   18.2737%  |   38.8%    |
-| Phone-Phone |   17.4%   |    18%      |   38.1895% |
+## Usage - for Playing with Different Methods
+For each feature, there is a 'script_FEATURE.m' which shows all the way from data processing to training and validation. However, for some features which does not yield very good results on validation set, we do not use them for blind test. You can see a brief comment at the beginning of each script. Also, there may be a 'fun_FEATURE.m' function which does roughly the same thing but is encapsulated as a MATLAB Function.
 
 
-#### NumCoeffs = 35; Exclude delta, delta^2
-feature num = 36
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 15.0421%  |   %     |   %      |
-| Phone-Phone |   %   |   %     |   % |
+## Data
 
-#### NumCoeffs = 30; Exclude delta, delta^2
-feature num = 31
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   15.2%   |   %     |   %      |
-| Phone-Phone |   %   |   %     |   % |
+The UCLA Speaker Variability Database is a database designed to capture variability both between speakers and within a single speaker. Speech utterances by 50 males in two different styles: read speech and phone call conversation are included in the training set. All the utterances are text-independent i.e all speakers are speaking different text. In the case of a phone call recording, only one side of the conversation is recorded in the studio. The microphone and environment conditions are the same for both styles. Each utterance is about 2 seconds long​.
 
-#### NumCoeffs = 25; Exclude delta, delta^2
-feature num = 26
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   17.4%   |   %     |   %      |
-| Phone-Phone |   %   |   %     |   % |
+This dataset is created by UCLA, SPAPL. Thus, we cannot distribute or use it outside this project. However, methods used in this work is universal, and you can use your own dataset for this work.
 
-#### NumCoeffs = 20; Exclude delta, delta^2
-feature num = 21
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  19.5368% |   %     |   %      |
-| Phone-Phone |   %   |   %     |   % |
+In the script, you have six knobs that you should prepare in advance:
 
-### CQCC (vanilla_cqcc.m)
-#### ZsdD = 'ZsdD', include delta, delta^2
-feature num = 60
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   21.2%   |   19.3263%  |   38.4%    |
-| Phone-Phone |   22%     |   21.6%     | 39.2105%   |
+- allFiles = '[allFiles.txt](filelists/allFiles.txt)'; 
+A list including all your sound files dataset for training and validation. A typical line looks like “speaker1_sentence_001.wav\n”.
 
-### PCA + CQCC (pca_cqcc.m)
-#### ZsdD = 'ZsdD', include delta, delta^2
-feature num = 20 (apply dimension reduction)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 15.6211%  |   19.2%     |   36.8%    |
-| Phone-Phone | 16.3368%  |   19.2211%  |   36.3158% |
+- trainList = '[train_read_trials.txt](filelists/train_read_trials.txt)';
+including speech pairs and labels for model training.
+Typical lines look like this: 
+“Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
+“Speaker1_sentence_001.wav  Speaker1_phone_001.wav  1\n”
 
-### MFCC + LPC ()
-#### Exclude delta, delta^2
-#### (mfcc=40 (1:41)取(1:30), lpcs(3:4))
-(apply dimension reduction pca = 0.9999)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 14.7263%  |   17.2%     |   34.6%    |
-| Phone-Phone | 17.1789%  |   16.8%     |   35.6%    |
+- testList = '[test_read_trials.txt](filelists/test_read_trials.txt)'; 
+Speech pairs and labels for model testing(validation). 
 
-### MFCC + LPC ()
-#### Exclude delta, delta^2
-#### (mfcc=40 (1:41)取(1:30), lpcs(3:5))
-(apply dimension reduction pca = 0.9999)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 15.2%     |   17.0526%  |   35.3263% |
-| Phone-Phone | 15.9789%  |   16.8%     |   35.9474% |
+- blind_list = '[blind_file_list](filelists/blind_file_list)'; 
+A list including all your sound dataset filenames for blind test.
 
-### MFCC + LPC ()
-#### Exclude delta, delta^2
-#### (mfcc=40 (1:41)取(1:35), lpcs(3:5))
-(apply dimension reduction pca = 0.9999)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 14.8%     |   17.1263%  |   35.3053% |
-| Phone-Phone | 17.3053%  |   16.5263%  |   36.6%    |
+- blind_trials = '[blind_trials](filelists/blind_trials)';
+Speech pairs for your blind test.
 
-### MFCC + cqcc + LPC ()
-#### Exclude delta, delta^2
-(apply dimension reduction pca = 0.9999)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  | 15.9368%  |   20%       |   36.6105% |
-| Phone-Phone | 16.4%     |   19.3474%  |   36.7474% |
+- ground_truth = 'blind_labels'
+Corresponding labels for your blind list pairs.
 
-### i-Vector (vanilla_ivector.m)
-#### Exclude delta, delta^2
-feature num = 70, NumCoeffs = 13, nMix = 32, tvDim = 100
 
-(use score_gplda)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   29.8%   |   34.4%     |     36%    |
-| Phone-Phone |   30.6%   |   30.4%     |    34.8%   |
+## Credits - References and inspirations of the implementation
 
-feature num = 69, NumCoeffs = 13, nMix = 32, tvDim = 100
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |   30%     |   34.4526%  |   35.6421% |
-| Phone-Phone |   30.8%   |   33%       |    36.4%   |
+(a) Source-filter based methods
+    - Pitch + LPC
+    - LPCC https://www.mathworks.com/help/dsp/ref/dsp.lpctocepstral-system-object.html
+    - VQual Features http://www.phonetics.ucla.edu/voicesauce/
 
-feature num = 69, NumCoeffs = 40, nMix = 32, tvDim = 100
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  32.1263% |   36.7474%  |   39.7053% |
-| Phone-Phone |   33%     |   35.2%     |    40.6%   |
+(b) Cepstral Coefficients
+    - LFCC https://www.asvspoof.org/asvspoof2019/ASVspoof_2019_baseline_CM_v1.zip
+    - MFCC
+    - CQCC https://www.asvspoof.org/asvspoof2019/ASVspoof_2019_baseline_CM_v1.zip
+    - add delta/delta^2
+    - apply PCA for dimension reduction
 
-feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 100
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  35.7474% |   31.8%     |   38.5789% |
-| Phone-Phone |   36.6%   |   34.2947%  |  37.0842%  |
+(c) NN based methods
+    - https://github.com/a-nagrani/VGGVox
 
-feature num = 69, NumCoeffs = 13, nMix = 512, tvDim = 100
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  32.0947% |   31.8%     |   37.4%    |
-| Phone-Phone |   33.2%   |   30.6%     |  35.6737%  |
+(d) i-Vector based methods
+    - https://github.com/SatyamGaba/Speaker-Recognition
 
-feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 100
-
-(ubm, T trained from large dataset)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  30.5263% |   34.4%     |   37.4%    |
-| Phone-Phone |   32.2%   |   34%       |  37.4421%  |
-
-feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 100
-
-(ubm, T trained from large dataset)(use score_gplda)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  33.2%    |   32%       |   36.5895% |
-| Phone-Phone |  30.8105% |   31.8%     |  35.2737%  |
-
-feature num = 69, NumCoeffs = 13, nMix = 256, tvDim = 200
-
-(ubm, T trained from large dataset)
-|  Train/Test | Read-Read | Phone-Phone | Read-Phone |
-|:-----------:|:---------:|:-----------:|:----------:|
-|  Read-Read  |  20.6211% |   19.6%     |   22.2%    |
-| Phone-Phone |   18.6%   |   20%       |   21.8%    |
