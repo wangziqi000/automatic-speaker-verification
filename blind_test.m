@@ -1,3 +1,5 @@
+% This file is used for testing each blind_"method" functions
+
 %% blind_nn
 
 allFiles = 'allFiles.txt';
